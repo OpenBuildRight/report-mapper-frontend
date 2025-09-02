@@ -140,3 +140,6 @@ vite.config.ts.timestamp-*
 
 # Jetbrains
 .idea
+
+*storybook.log
+storybook-static
