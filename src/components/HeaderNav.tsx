@@ -9,14 +9,14 @@ import MenuIcon from '@mui/icons-material/Menu';
 import {Drawer, GlobalStyles, List, ListItem, ListItemButton, ListItemText} from "@mui/material";
 import Link from '@mui/material/Link';
 
-interface HeaderNavRoute {
+interface RouteDrawerRoute {
     displayName: string
     path: string
 }
 
 interface HeaderProps {
     title?: string;
-    routes?: HeaderNavRoute[];
+    routes?: RouteDrawerRoute[];
 }
 
 const HeaderNav: React.FC<HeaderProps> = ({
