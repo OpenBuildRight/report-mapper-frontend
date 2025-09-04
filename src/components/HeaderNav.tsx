@@ -51,7 +51,7 @@ const HeaderNav: React.FC<HeaderProps> = ({
                     >
                         <MenuIcon />
                     </IconButton>
-                    <RouteDrawer routes={routes} isOpen={open} setOpen={toggleDrawer}/>
+                    <RouteDrawer routes={routes} isOpen={open} onClose={toggleDrawer(false)}/>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                         { title }
                     </Typography>
