@@ -8,6 +8,7 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import {Drawer, GlobalStyles, List, ListItem, ListItemButton, ListItemText} from "@mui/material";
 import Link from '@mui/material/Link';
+import RouteDrawer from "./RouteDrawer";
 
 interface RouteDrawerRoute {
     displayName: string
@@ -50,17 +51,7 @@ const HeaderNav: React.FC<HeaderProps> = ({
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Drawer
-                        open={open}
-                        onClose={toggleDrawer(false)}
-                        anchor="left"
-                    >
-                        <Button sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)} onKeyDown={toggleDrawer(false)}>
-                            <List>
-                                {routesList}
-                            </List>
-                        </Button>
-                    </Drawer>
+                    <RouteDrawer routes={routes} isOpen={open} setOpen={toggleDrawer}/>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                         { title }
                     </Typography>
