@@ -15,10 +15,8 @@ function App() {
   return (
     <div className="App">
         <ThemeProvider theme={darkTheme}>
-            <BrowserRouter>
                 <HeaderNav/>
                 <div>body</div>
-            </BrowserRouter>
         </ThemeProvider>
     </div>
   );

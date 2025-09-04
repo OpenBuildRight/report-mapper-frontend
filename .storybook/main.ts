@@ -8,7 +8,7 @@ const config: StorybookConfig = {
     "@storybook/preset-create-react-app"
   ],
   "framework": {
-    "name": "@storybook/react-webpack5",
+    "name": "@storybook/react-vite",
     "options": {}
   },
   "staticDirs": [
