@@ -6,8 +6,6 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import {Drawer, GlobalStyles, List, ListItem, ListItemButton, ListItemText} from "@mui/material";
-import Link from '@mui/material/Link';
 import RouteDrawer from "./RouteDrawer";
 
 interface RouteDrawerRoute {
@@ -31,13 +29,6 @@ const HeaderNav: React.FC<HeaderProps> = ({
     const toggleDrawer = (newOpen: boolean) => () => {
         setOpen(newOpen);
   };
-    const routesList = routes.map((route, index) =>
-        <ListItem key={index}>
-                <Link href={route.path} onClick={toggleDrawer(false)}>
-                     {route.displayName}
-                </Link>
-        </ListItem>
-    )
     return (
         <Box sx={{ flexGrow: 1 }} color="inherit">
             <AppBar position="static">

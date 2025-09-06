@@ -26,3 +26,8 @@ yarn-error.log*
 storybook-static
 
 .idea
+tsconfig.tsbuildinfo
+*.gen.ts
+*.gen.tsx
+dist
+
