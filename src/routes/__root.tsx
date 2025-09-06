@@ -14,7 +14,20 @@ export const Route = createRootRoute({
     component: () => (
         <>
             <ThemeProvider theme={darkTheme}>
-            <HeaderNav/>
+            <HeaderNav
+                routes={
+                    [
+                        {
+                            displayName: "Map",
+                            path: "/"
+                        },
+                        {
+                            displayName: "Report Observation",
+                            path: "/observation"
+                        }
+                    ]
+                }
+            />
             <Outlet/>
             <TanstackDevtools
                 config={{
