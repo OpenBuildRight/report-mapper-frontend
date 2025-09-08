@@ -46,11 +46,11 @@ const ObservationForm = () => {
                 >
                     <TextField type="number"
                                name={"Latitude"}
-                               label={"Latitude"}
+                               label={"Latitude *"}
                     />
                     <TextField type="number"
                                name={"Longitude"}
-                               label={"Longitude"}
+                               label={"Longitude *"}
                     />
                 </Card>
                 <Card

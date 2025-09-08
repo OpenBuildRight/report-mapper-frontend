@@ -1,22 +1,46 @@
-import {Card, ImageList, ImageListItem, ImageListItemBar, Paper, TextField} from "@mui/material"
-import React, {useState} from "react";
+import {Card, ImageList, ImageListItem, ImageListItemBar, Paper} from "@mui/material"
+import React, {RefObject, useState} from "react";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
+import Button from "@mui/material/Button";
+import FileUploadIcon from '@mui/icons-material/FileUpload';
 
-const PhotoUpload : React.FC = (
+interface PhotoUploadState {
+    files: File[];
+}
 
-) => {
-    const fileRef = React.useRef(null);
-    const [files, setFiles] = useState<File[]>([]);
+interface PhotoUploadProps {
+    onChange: ( React.ChangeEvent<PhotoUploadState>);
+}
+
+const PhotoUpload : React.FC = () => {
+    const fileRef: RefObject<null | HTMLInputElement> = React.useRef(null);
+    const [files, setFiles] = useState<Map<string, File>>(new Map());
     function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {
         if (event.target.files) {
-            setFiles(Array.from(event.target.files));
+            var newFiles: Map<string, File> = new Map(Array.from(event.target.files).map(file => [file.name, file]))
+            files.entries().forEach(
+                ([key, value]) => {
+                    if (!newFiles.has(key)) {
+                        newFiles.set(key, value)
+                    }
+                }
+            )
+            setFiles(
+                newFiles
+            )
+            event.target.files = null
         }
     }
-    const removeFileByIndex = (indexToRemove: number) => {
-        setFiles(prevItems => prevItems.filter((_, index) => index !== indexToRemove));
+    const removeFileByName = (key: string) => {
+        const newFiles = new Map(files.entries().filter(([k, v]) => k != key));
+        setFiles(newFiles);
     };
-
+    const selectPhotosClick = () => {
+        if (fileRef.current != null) {
+            fileRef.current.click();
+        }
+    }
     return (
         <Paper>
             <Card elevation={10}>
@@ -24,12 +48,16 @@ const PhotoUpload : React.FC = (
                 <input
                     type="file"
                     ref={fileRef}
-                    multiple={true}
+                    hidden
+                    multiple
                     accept="image/jpg, image/jpeg, image/png"
                     onChange={(e) => {handleFileChange(e)}}
                 />
+                <Button onClick={selectPhotosClick}>
+                     Photos
+                </Button>
                 <ImageList>
-                    {files.map((file, index) => (
+                    {files.values().map((file) => (
                         <ImageListItem
                             sx={{
                                 maxWidth: "200px",
@@ -39,13 +67,13 @@ const PhotoUpload : React.FC = (
                             <img
                                 src={URL.createObjectURL(file)}
                                 alt={file.name}
-                                key={index}
+                                key={file.name}
                             />
                             <ImageListItemBar
                                 position={"top"}
                                 actionIcon={
                                     <IconButton
-                                        onClick={() => removeFileByIndex(index)}
+                                        onClick={() => removeFileByName(file.name)}
                                     >
                                         <CloseIcon/>
                                     </IconButton>
@@ -55,6 +83,12 @@ const PhotoUpload : React.FC = (
                         </ImageListItem>
                     ))}
                 </ImageList>
+                <Button
+                    disabled={files.entries.length != 0}
+                >
+                    Upload Photos
+                    <FileUploadIcon/>
+                </Button>
             </Card>
         </Paper>
     )
