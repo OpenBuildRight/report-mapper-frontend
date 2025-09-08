@@ -1,5 +1,7 @@
-import {Card, Paper, TextField} from "@mui/material"
+import {Card, ImageList, ImageListItem, ImageListItemBar, Paper, TextField} from "@mui/material"
 import React, {useState} from "react";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
 
 const PhotoUpload : React.FC = (
 
@@ -11,6 +13,10 @@ const PhotoUpload : React.FC = (
             setFiles(Array.from(event.target.files));
         }
     }
+    const removeFileByIndex = (indexToRemove: number) => {
+        setFiles(prevItems => prevItems.filter((_, index) => index !== indexToRemove));
+    };
+
     return (
         <Paper>
             <Card elevation={10}>
@@ -22,18 +28,33 @@ const PhotoUpload : React.FC = (
                     accept="image/jpg, image/jpeg, image/png"
                     onChange={(e) => {handleFileChange(e)}}
                 />
-                <div>
+                <ImageList>
                     {files.map((file, index) => (
-                        <img
-                            key={index}
-                            alt={file.name}
-                            src={URL.createObjectURL(file)}
-                            style={{
-                                maxWidth: "100px",
+                        <ImageListItem
+                            sx={{
+                                maxWidth: "200px",
+                                maxHeight: "200px",
                             }}
-                        />
+                        >
+                            <img
+                                src={URL.createObjectURL(file)}
+                                alt={file.name}
+                                key={index}
+                            />
+                            <ImageListItemBar
+                                position={"top"}
+                                actionIcon={
+                                    <IconButton
+                                        onClick={() => removeFileByIndex(index)}
+                                    >
+                                        <CloseIcon/>
+                                    </IconButton>
+                                }
+
+                            />
+                        </ImageListItem>
                     ))}
-                </div>
+                </ImageList>
             </Card>
         </Paper>
     )
