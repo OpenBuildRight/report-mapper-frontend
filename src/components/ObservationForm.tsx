@@ -3,26 +3,35 @@ import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import {LocalizationProvider} from "@mui/x-date-pickers";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import Button from "@mui/material/Button";
+import PhotoUpload from "./PhotoUpload";
 
 const ObservationForm = () => {
     return (
         <Paper
             sx = {{
+                display: "flex",
                 alignItems: "center",
+                justifyContent: "center",
                 alignContent: "center",
+                padding: 2,
             }}
             elevation={1}
         >
             <Stack direction={"column"} spacing={2}>
+                <PhotoUpload/>
                 <Card
                     elevation={10}
-
-
+                    sx={{
+                        padding: 2
+                    }}
                 >
                     <TextField
                         required={true}
                         name={"Description"}
                         label={"Description"}
+                        fullWidth={true}
+                        multiline={true}
+                        sx={{}}
                     />
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DateTimePicker
@@ -31,7 +40,10 @@ const ObservationForm = () => {
                         />
                     </LocalizationProvider>
                 </Card>
-                <Card>
+                <Card
+                    elevation={10}
+                    sx={{padding: 2}}
+                >
                     <TextField type="number"
                                name={"Latitude"}
                                label={"Latitude"}
@@ -41,11 +53,13 @@ const ObservationForm = () => {
                                label={"Longitude"}
                     />
                 </Card>
-
+                <Card
+                    elevation={10}
+                    sx={{padding: 2}}
+                >
+                    <Button variant={"outlined"}>Submit</Button>
+                </Card>
             </Stack>
-            <Card>
-                <Button variant={"outlined"}>Submit</Button>
-            </Card>
         </Paper>
     )
 }
