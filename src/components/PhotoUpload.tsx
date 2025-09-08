@@ -10,10 +10,14 @@ interface PhotoUploadState {
 }
 
 interface PhotoUploadProps {
-    onChange: ( React.ChangeEvent<PhotoUploadState>);
+    onChange(props: PhotoUploadState) : void;
 }
 
-const PhotoUpload : React.FC = () => {
+const PhotoUpload : React.FC<PhotoUploadProps> = (
+    {
+    onChange
+}
+) => {
     const fileRef: RefObject<null | HTMLInputElement> = React.useRef(null);
     const [files, setFiles] = useState<Map<string, File>>(new Map());
     function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -54,7 +58,7 @@ const PhotoUpload : React.FC = () => {
                     onChange={(e) => {handleFileChange(e)}}
                 />
                 <Button onClick={selectPhotosClick}>
-                     Photos
+                     Add Photos
                 </Button>
                 <ImageList>
                     {files.values().map((file) => (
@@ -85,6 +89,9 @@ const PhotoUpload : React.FC = () => {
                 </ImageList>
                 <Button
                     disabled={files.entries.length != 0}
+                    onClick={
+                        () => onChange({files: Array.from(files.values())})
+                    }
                 >
                     Upload Photos
                     <FileUploadIcon/>
