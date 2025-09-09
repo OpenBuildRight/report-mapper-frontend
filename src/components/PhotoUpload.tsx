@@ -75,6 +75,7 @@ const PhotoUpload : React.FC<PhotoUploadProps> = (
                             />
                             <ImageListItemBar
                                 position={"top"}
+                                title={file.name}
                                 actionIcon={
                                     <IconButton
                                         onClick={() => removeFileByName(file.name)}
