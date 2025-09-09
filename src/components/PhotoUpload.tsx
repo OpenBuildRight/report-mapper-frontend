@@ -5,9 +5,10 @@ import CloseIcon from "@mui/icons-material/Close";
 import Button from "@mui/material/Button";
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 
-interface PhotoUploadState {
+export interface PhotoUploadState {
     files: File[];
 }
+
 
 interface PhotoUploadProps {
     onChange(props: PhotoUploadState) : void;
