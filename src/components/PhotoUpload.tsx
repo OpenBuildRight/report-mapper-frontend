@@ -5,22 +5,21 @@ import CloseIcon from "@mui/icons-material/Close";
 import Button from "@mui/material/Button";
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 
-export interface PhotoUploadState {
-    files: File[];
-}
-
 
 interface PhotoUploadProps {
-    onChange(props: PhotoUploadState) : void;
+    files: Map<string, File>;
+    setFiles: (files: Map<string, File>) => void;
+    onUploadClick: () => void;
 }
 
 const PhotoUpload : React.FC<PhotoUploadProps> = (
     {
-    onChange
-}
+        files,
+        setFiles,
+        onUploadClick,
+    }
 ) => {
     const fileRef: RefObject<null | HTMLInputElement> = React.useRef(null);
-    const [files, setFiles] = useState<Map<string, File>>(new Map());
     function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {
         if (event.target.files) {
             var newFiles: Map<string, File> = new Map(Array.from(event.target.files).map(file => [file.name, file]))
@@ -62,8 +61,9 @@ const PhotoUpload : React.FC<PhotoUploadProps> = (
                      Add Photos
                 </Button>
                 <ImageList>
-                    {files.values().map((file) => (
+                    {Array.from(files.values()).map((file) => (
                         <ImageListItem
+                            key={file.name}
                             sx={{
                                 maxWidth: "200px",
                                 maxHeight: "200px",
@@ -72,7 +72,6 @@ const PhotoUpload : React.FC<PhotoUploadProps> = (
                             <img
                                 src={URL.createObjectURL(file)}
                                 alt={file.name}
-                                key={file.name}
                             />
                             <ImageListItemBar
                                 position={"top"}
@@ -90,9 +89,9 @@ const PhotoUpload : React.FC<PhotoUploadProps> = (
                     ))}
                 </ImageList>
                 <Button
-                    disabled={files.entries.length != 0}
+                    disabled={Array.from(files.entries()).length === 0}
                     onClick={
-                        () => onChange({files: Array.from(files.values())})
+                        onUploadClick
                     }
                 >
                     Upload Photos
