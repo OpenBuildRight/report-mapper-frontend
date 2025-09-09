@@ -52,11 +52,6 @@ export const Primary: Story = {
 }
 
 
-const darkTheme = createTheme({
-    palette: {
-        mode: 'dark',
-    },
-});
 
 export const WithPhotos: Story = {
   // Loader supplies files Map; we consume it via the story context to keep the story stateless
