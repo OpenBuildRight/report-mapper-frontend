@@ -6,7 +6,7 @@ import Button from "@mui/material/Button";
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 
 
-interface PhotoUploadProps {
+export interface PhotoUploadProps {
     files: Map<string, File>;
     setFiles: (files: Map<string, File>) => void;
     onUploadClick: () => void;

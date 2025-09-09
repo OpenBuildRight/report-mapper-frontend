@@ -4,8 +4,17 @@ import {LocalizationProvider} from "@mui/x-date-pickers";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import Button from "@mui/material/Button";
 import PhotoUpload from "./PhotoUpload";
+import {PhotoUploadProps} from "./PhotoUpload";
 
-const ObservationForm = () => {
+interface ObservationFormProps {
+    photoUploadProps: PhotoUploadProps;
+}
+
+const ObservationForm : React.FC<ObservationFormProps> = (
+        {
+            photoUploadProps,
+        }
+    ) => {
     return (
         <Paper
             sx = {{
@@ -18,7 +27,11 @@ const ObservationForm = () => {
             elevation={1}
         >
             <Stack direction={"column"} spacing={2}>
-                <PhotoUpload/>
+                <PhotoUpload
+                    onUploadClick={photoUploadProps.onUploadClick}
+                    files={photoUploadProps.files}
+                    setFiles={photoUploadProps.setFiles}
+                />
                 <Card
                     elevation={10}
                     sx={{
